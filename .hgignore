@@ -1,0 +1,16 @@
+fixtures/profiles_dev.json
+syntax: glob
+*.elc
+*.pyc
+*.swp
+*.swo
+*.xls
+*.pid
+*.log
+*.orig
+data.db
+.DB_store
+celerybeat-schedule
+
+syntax:regexp
+clients.json

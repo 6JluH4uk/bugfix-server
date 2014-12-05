@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+          <form class="form-signin" role="form" method="post">
+            {{ form.csrf_token }}
+                <h2 class="form-signin-heading">Войдите</h2>
+                {% for error in form.errors.login %} <p class="error">{{ error }}</p> {% endfor %}
+                {{ form.login(placeholder='Логин', class_='form-control') }}
+                {% for error in form.errors.password %} <p class="error">{{ error }}</p> {% endfor %} 
+                {{ form.password(placeholder='Пароль', class_='form-control') }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+          </form>
+    </div> <!-- /container -->
+
+{% endblock %}
