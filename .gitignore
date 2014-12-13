@@ -5,3 +5,4 @@
 *.elc
 *.swo
 *.pid
+data.db
