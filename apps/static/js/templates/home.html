@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-10">
+        <table class="table table-bordered bugs">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Текст</th>
+                    <th>Статус</th>
+                    <th>Дата создания</th>
+                    <th>Срок</th>
+                    <th>Проект</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group">
+            <button type="button" class="btn btn-default status" value="0">Поставленные</button>
+            <button type="button" class="btn btn-default status" value="1">На проверке</button>
+            <button type="button" class="btn btn-default status" value="2">Отмененные</button>
+            <button type="button" class="btn btn-default status" value="3">Выполненные</button>
+            <button type="button" class="btn btn-default status" value="4">Удаленные</button>
+        </div>
+        <div class="btn-group-vertical" role="group">
+            <button type="button" class="btn btn-default filterDate" value="0">Все</button>
+            <button type="button" class="btn btn-default filterDate" value="1">Просроченные</button>
+            <button type="button" class="btn btn-default filterDate" value="2">Сегодня и ранее</button>
+            <button type="button" class="btn btn-default filterDate" value="3">Следующая неделя</button>
+            <button type="button" class="btn btn-default filterDate" value="4">Следующий месяц</button>
+        </div>
+        <div class="btn-group-vertical" role="group">
+            {{#each projects}}
+                <button type="button" class="btn btn-default project" value="{{ id }}">{{ project }}</button>
+            {{/each}}
+        </div>
+    </div>
+</div>
