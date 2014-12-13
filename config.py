@@ -4,7 +4,7 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 if '/home/bugfix/' in BASE_DIR:
-    DEBUG = True
+    DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://bugfix:pyC2W9eKrZ@localhost/bugfix'
 else:
     DEBUG = True

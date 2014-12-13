@@ -1,9 +1,17 @@
 #-*- coding:utf-8 -*- 
 
-from flask import render_template, redirect, g, url_for, Blueprint
+import json
+from bson import json_util
+
+from flask import request, render_template, redirect, g, url_for, Blueprint, Response, abort
 from flask.ext.login import login_user, login_required, logout_user, current_user
+
+from apps import db
+
 from apps.profiles.forms import LoginForm
 from apps.profiles.models import User
+from apps.bugs.models import Project, Bug
+from apps.bugs.utils import get_or_create
 
 profiles_views = Blueprint('views', __name__)
 
@@ -16,6 +24,23 @@ def before_request():
 @login_required
 def index():
     return render_template("index.html", form = LoginForm())
+
+@profiles_views.route('/load/', methods=["POST"])
+def load():
+    data = json.loads(request.data, object_hook=json_util.object_hook)
+    project = Project.query.filter(Project.project == data.get('project')).first()
+    if project:
+        bugs = data.get('json')
+        for bug in bugs:
+            obj = get_or_create(db.session, Bug, name = bug['name'], project = project.id)
+            obj.text = bug['text']
+            obj.status = bug['status']
+            obj.date = bug['date']
+            obj.created_at = bug['createdate']
+
+            db.session.commit()
+        return Response(True)
+    abort(404)
 
 @profiles_views.route("/login", methods=["GET", "POST"])
 def login():
