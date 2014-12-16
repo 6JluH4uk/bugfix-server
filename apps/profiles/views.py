@@ -12,6 +12,7 @@ from apps.profiles.forms import LoginForm
 from apps.profiles.models import User
 from apps.bugs.models import Project, Bug
 from apps.bugs.utils import get_or_create
+from config import DEBUG
 
 profiles_views = Blueprint('views', __name__)
 
@@ -23,7 +24,7 @@ def before_request():
 @profiles_views.route('/')
 @login_required
 def index():
-    return render_template("index.html", form = LoginForm())
+    return render_template("index.html", form = LoginForm(), DEBUG = DEBUG)
 
 @profiles_views.route('/load/', methods=["POST"])
 def load():

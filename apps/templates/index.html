@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <script data-main="/static/js/main" src="/static/js/require.js"></script>
+    {% if DEBUG %}
+        <script data-main="/static/js/main" src="/static/js/require.js"></script>
+    {% else %}
+        <script src="/static/js/require.js"></script>
+        <script src="/static/js/bugfix.js"></script>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
