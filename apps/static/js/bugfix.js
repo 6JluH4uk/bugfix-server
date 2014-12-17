@@ -3538,15 +3538,54 @@ define('views/projects',[
     }
 )
 ;
+define('views/pass',[ 
+    'jquery',
+    'underscore',
+    'backbone',
+    ],
+    function ( $ , _ , Backbone) { 
+        var keylist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        function generatepass(plength){
+            temp=''
+            for (i=0;i<plength;i++)
+                temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
+                return temp
+        }
+
+        return Backbone.View.extend({
+            el:$('body'),
+
+            initialize: function(){
+                this.render()
+            },
+            events: {
+                'submit .newPass': 'render'
+            },
+
+            render: function(){
+                $('.pass').val(generatepass(20))
+                return false;
+            },
+
+        })
+    }
+)
+;
 define('router',[ 
     'jquery',
     'underscore',
     'backbone',
     'views/home',
-    'views/projects'
+    'views/projects',
+    'views/pass',
     ],
-    function ( $ , _ , Backbone, HomeView, ProjectsView) { 
+    function ( $ , _ , Backbone, HomeView, ProjectsView, PassView) { 
+
+        // View generate new pass
+        new PassView()
+
         AppRouter = Backbone.Router.extend({
+
             routes: {
                 '':  'home',
                 'projects': 'projects',
@@ -3575,6 +3614,7 @@ define('router',[
                 this.siteView = new HomeView({ statuses: statuses,
                                                date: date,
                                                projects: projects,});
+
              },
 
              projects: function(){
@@ -3584,6 +3624,7 @@ define('router',[
                 if (this.siteView)
                     this.siteView.deactivate()
                 this.siteView = new ProjectsView();
+
              },
         })
 
