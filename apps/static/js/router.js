@@ -3,10 +3,16 @@ define([
     'underscore',
     'backbone',
     'views/home',
-    'views/projects'
+    'views/projects',
+    'views/pass',
     ],
-    function ( $ , _ , Backbone, HomeView, ProjectsView) { 
+    function ( $ , _ , Backbone, HomeView, ProjectsView, PassView) { 
+
+        // View generate new pass
+        new PassView()
+
         AppRouter = Backbone.Router.extend({
+
             routes: {
                 '':  'home',
                 'projects': 'projects',
@@ -35,6 +41,7 @@ define([
                 this.siteView = new HomeView({ statuses: statuses,
                                                date: date,
                                                projects: projects,});
+
              },
 
              projects: function(){
@@ -44,6 +51,7 @@ define([
                 if (this.siteView)
                     this.siteView.deactivate()
                 this.siteView = new ProjectsView();
+
              },
         })
 
